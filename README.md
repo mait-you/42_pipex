@@ -24,7 +24,7 @@ The Open File Table stores the information about all the files that are open whi
 System calls are the calls that a program makes to the system kernel to provide the services to which the program does not have direct access.
 
 ### `open`
-The open() function in C is used to open the file for reading, writing, or both. It is also capable of creating the file if it does not exist. 
+The `open()` function in C is used to open the file for reading, writing, or both. It is also capable of creating the file if it does not exist. 
 ```c
 int open(const char *path, int oflag, ... );
 ```
@@ -48,6 +48,24 @@ int open(const char *path, int oflag, ... );
 | `O_TMPFILE`   | Creates a *temporary file* that is deleted when closed (used for secure, unlinked temporary storage). |
 
 </div>
+
+**How C open() works in OS**
+- Find the existing file on the disk.
+- Create file table entry.
+- Set the first unused file descriptor to point to the file table entry.
+- Return file descriptor used, -1 upon failure.
+
+### `close`
+The `close()` function in C tells the operating system that you are done with a file descriptor and closes the file pointed by the file descriptor.
+```c
+int close(int fd);
+```
+
+**How C close() works in the OS**
+- Destroy file table entry referenced by element fd of the file descriptor table (As long as no other process is pointing to it!)
+
+
+
 
 
 
